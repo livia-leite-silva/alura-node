@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 
 //criando novo schema 
+//var representa como vai ta o schema no banco
 let bookSchema = new mongoose.Schema({
     id: {type: String},
     title: {type: String, required: true},
