@@ -3,11 +3,15 @@ import books from "../models/Book.js"
 class BookController{
 
     static bookList = (request, response) => {
-        books.find((err, books) => {
-            response.status(200).json(books)
-        })
+
+        books.find()
+            .populate('author')
+            .exec((err, books) => {
+                response.status(200).json(books)
+            })
     }
 
+    //conectar author e mostrar somente o nome 
     static bookById = (request, response) => {
         const {id} = request.params
         books.findById(id, (err, books) => {

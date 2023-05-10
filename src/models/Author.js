@@ -10,6 +10,7 @@ let authorSchema = new mongoose.Schema({
 )
 
 // essa const ta recebendo um modelo guardado no banco com nome author
+//authors é a entidade
 const authors = mongoose.model('authors', authorSchema)
 
 export default authors 
