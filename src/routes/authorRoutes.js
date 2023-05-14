@@ -3,6 +3,8 @@ import AuthorController from "../controllers/authorController.js";
 
 const router = express.Router()
 
+// Padrão express de rotas: mais expecífica pro menos expecífica 
+
 router
     .get('/authors', AuthorController.authorList)
     .get('/authors/:id', AuthorController.authorById)

@@ -1,11 +1,12 @@
 import books from "../models/Book.js"
+import publishers from "../models/Publisher.js"
 
 class BookController{
 
     static bookList = (request, response) => {
 
         books.find()
-            .populate('author')
+            .populate('author', 'name') //associacao de dados
             .exec((err, books) => {
                 response.status(200).json(books)
             })
@@ -14,11 +15,24 @@ class BookController{
     //conectar author e mostrar somente o nome 
     static bookById = (request, response) => {
         const {id} = request.params
+
         books.findById(id, (err, books) => {
             if(err){
                 response.status(400).send({message: `${err.message} - id not found`})
             } else {
                 response.status(200).send(books)
+            }
+        })
+    }
+
+    static bookListByPublisher = (request, response) => {
+        const { publisher } = request.query //recebe a informacao da URL
+
+        books.find({'publisher': publisher}, {}, (err, books) => {
+            if(!err){
+                response.status(200).send(books)
+            } else {
+                response.status(500).send({message: `${err.message} - error trying to find a book by publisher`})
             }
         })
     }
@@ -60,6 +74,7 @@ class BookController{
         })
     }
 
+  
 }
 
 export default BookController
